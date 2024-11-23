@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <bits/stl_algobase.h>
 
 int main(int argv, char** args)
 {
@@ -18,6 +19,8 @@ int main(int argv, char** args)
     int mouse_x = 0;
     int mouse_y = 0;
 
+    SDL_Surface * draw_surface = nullptr;
+
     bool running = true;
     while (running)
     {
@@ -29,6 +32,9 @@ int main(int argv, char** args)
                 switch (event.window.event)
                 {
                 case SDL_WINDOWEVENT_RESIZED:
+                    if (draw_surface)
+                        SDL_FreeSurface(draw_surface);
+                    draw_surface = nullptr;
                     width = event.window.data1;
                     height = event.window.data2;
                     break;
@@ -47,6 +53,21 @@ int main(int argv, char** args)
 
         if (!running)
             break;
+        
+        if (!draw_surface)
+        {
+            // RGBA32 means 8 bits per channel, 32 bits total.
+            draw_surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
+            // Fully opaque pixels.
+            SDL_SetSurfaceBlendMode(draw_surface, SDL_BLENDMODE_BLEND);
+        }
+
+        SDL_Rect rect = { 0, 0, width, height };
+        SDL_BlitSurface(draw_surface, nullptr, SDL_GetWindowSurface(window), &rect);
+
+        SDL_UpdateWindowSurface(window);
+
+        std::fill_n((uint32_t *)draw_surface->pixels, width * height, 0xffffdfdf);
     }
 
     return 0;
