@@ -6,7 +6,7 @@ set(CMAKE_PREFIX_PATH "C:/SDL2")
 
 find_package(SDL2 REQUIRED)
 
-file(GLOB_RECURSE RASTERIZER_HEADERS "include/*.hpp")
+file(GLOB_RECURSE RASTERIZER_HEADERS "include/**/*.hpp")
 file(GLOB_RECURSE RASTERIZER_SOURCES "source/*.cpp")
 
 add_executable(cpu-rasterizer

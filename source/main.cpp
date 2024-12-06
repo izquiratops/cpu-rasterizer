@@ -1,8 +1,6 @@
 #include <SDL.h>
 #include <rasterizer/renderer.hpp>
 
-using namespace rasterizer;
-
 int main(int argv, char **args) {
   SDL_Init(SDL_INIT_VIDEO);
 
@@ -56,6 +54,8 @@ int main(int argv, char **args) {
       SDL_SetSurfaceBlendMode(draw_surface, SDL_BLENDMODE_BLEND);
     }
 
+    using namespace rasterizer;
+
     image_view color_buffer
     {
       .pixels = (color4ub *)draw_surface->pixels,
@@ -63,7 +63,7 @@ int main(int argv, char **args) {
       .height = (std::uint32_t)height,
     };
 
-    clear(color_buffer, {0.8f, 0.9f, 1.f, 1.f});
+    clear(color_buffer, {1.f, 0.3f, 1.f, 1.f});
 
     SDL_Rect rect = {0, 0, width, height};
     SDL_BlitSurface(draw_surface, nullptr, SDL_GetWindowSurface(window), &rect);
