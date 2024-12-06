@@ -1,4 +1,7 @@
 #include <SDL.h>
+#include <chrono>
+#include <iostream>
+
 #include <rasterizer/renderer.hpp>
 
 int main(int argv, char **args) {
@@ -11,10 +14,14 @@ int main(int argv, char **args) {
       "My first rasterizer!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
       width, height, SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
 
+  SDL_Surface *draw_surface = nullptr;
+
   int mouse_x = 0;
   int mouse_y = 0;
 
-  SDL_Surface *draw_surface = nullptr;
+  using clock = std::chrono::high_resolution_clock;
+
+  auto last_frame_start = clock::now();
 
   bool running = true;
   while (running) {
@@ -53,6 +60,12 @@ int main(int argv, char **args) {
       // Fully opaque pixels.
       SDL_SetSurfaceBlendMode(draw_surface, SDL_BLENDMODE_BLEND);
     }
+
+    auto now = clock::now();
+    float dt = std::chrono::duration_cast<std::chrono::duration<float>>(now -last_frame_start).count();
+    last_frame_start = now;
+
+    std::cout << dt << std::endl;
 
     using namespace rasterizer;
 
