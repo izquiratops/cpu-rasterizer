@@ -5,6 +5,11 @@
 #include <rasterizer/renderer.hpp>
 
 int main(int argv, char **args) {
+  std::ios_base::sync_with_stdio( false ) ;
+  // std::cout now has its own separate buffer. this buffer too, when flushed, 
+  // writes the characters to the device associated with stdout.
+  // https://cplusplus.com/forum/beginner/140381/
+
   SDL_Init(SDL_INIT_VIDEO);
 
   int width = 800;
@@ -62,10 +67,10 @@ int main(int argv, char **args) {
     }
 
     auto now = clock::now();
-    float dt = std::chrono::duration_cast<std::chrono::duration<float>>(now -last_frame_start).count();
+    float dt = std::chrono::duration_cast<std::chrono::duration<float>>(now - last_frame_start).count();
     last_frame_start = now;
 
-    std::cout << dt << std::endl;
+    std::cout << "Hello" << std::endl;
 
     using namespace rasterizer;
 
