@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(cpu-rasterizer)
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_PREFIX_PATH "C:/SDL2")
+set(CMAKE_PREFIX_PATH "C:/Msys64/usr/bin")
 
 find_package(SDL2 REQUIRED)
 
@@ -21,4 +21,4 @@ target_include_directories(cpu-rasterizer PUBLIC
 
 target_link_libraries(cpu-rasterizer PUBLIC
     ${SDL2_LIBRARIES}
-)
+)   
