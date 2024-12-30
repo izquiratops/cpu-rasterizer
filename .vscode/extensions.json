@@ -1,6 +1,6 @@
 {
     "recommendations": [
         "kylinideteam.cmake-intellisence",
-        "llvm-vs-code-extensions.vscode-clangd"
+        "xaver.clang-format"
     ]
 }

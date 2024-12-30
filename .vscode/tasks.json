@@ -2,13 +2,21 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Run CMake",
+            "label": "Clear build folder",
+            "command": "rm -rf build",
             "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+        },
+        {
+            "label": "Prepare project",
             "command": "cmake",
+            "type": "shell",
             "args": [
                 "-B=build",
-                "-DCMAKE_C_COMPILER=gcc",
-                "-DCMAKE_CXX_COMPILER=g++"
+                "-G='MinGW Makefiles'",
+                "-DCMAKE_BUILD_TYPE=Release",
             ],
             "group": "build",
             "options": {
@@ -16,18 +24,22 @@
             },
         },
         {
-            "label": "Run Make",
+            "label": "Build project",
             "type": "shell",
-            "command": "make",
+            "command": "cmake --build .",
             "group": "build",
             "options": {
                 "cwd": "${workspaceFolder}/build"
             },
         },
         {
-            "label": "Build project",
+            "label": "Build from scratch",
             "dependsOrder": "sequence",
-            "dependsOn": ["Run CMake", "Run Make"]
+            "dependsOn": [
+                "Clear build folder",
+                "Prepare project",
+                "Build it!"
+            ]
         }
     ]
 }
