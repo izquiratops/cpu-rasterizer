@@ -4,10 +4,10 @@
 #include <rasterizer/renderer.hpp>
 
 int main(int argv, char **args) {
-  // std::cout now has its own separate buffer. this buffer too, when flushed, 
+  // std::cout now has its own separate buffer. this buffer too, when flushed,
   // writes the characters to the device associated with stdout.
   // https://cplusplus.com/forum/beginner/140381/
-  std::ios_base::sync_with_stdio( false ) ;
+  std::ios_base::sync_with_stdio(false);
 
   SDL_Init(SDL_INIT_VIDEO);
 
@@ -66,21 +66,39 @@ int main(int argv, char **args) {
     }
 
     auto now = clock::now();
-    float dt = std::chrono::duration_cast<std::chrono::duration<float>>(now - last_frame_start).count();
+    float dt = std::chrono::duration_cast<std::chrono::duration<float>>(
+                   now - last_frame_start)
+                   .count();
     last_frame_start = now;
 
     std::cout << dt * 1000.f << "ms" << std::endl;
 
     using namespace rasterizer;
 
-    image_view color_buffer
-    {
-      .pixels = (color4ub *)draw_surface->pixels,
-      .width = (std::uint32_t)width,
-      .height = (std::uint32_t)height,
+    image_view color_buffer{
+        .pixels = (color4ub *)draw_surface->pixels,
+        .width = (std::uint32_t)width,
+        .height = (std::uint32_t)height,
     };
 
     clear(color_buffer, {1.f, 0.3f, 1.f, 1.f});
+
+    vector3f vertices[] =
+    {
+        {100.f, 100.f, 0.f},
+        {200.f, 100.f, 0.f},
+        {100.f, 200.f, 0.f},
+    };
+
+    draw(color_buffer,
+        draw_command {
+            .mesh = {
+                .positions = vertices,
+                .vertex_count = 3,
+                .color = {0.f, 0.f, 1.f, 1.f},
+            }
+        }
+    );
 
     SDL_Rect rect = {0, 0, width, height};
     SDL_BlitSurface(draw_surface, nullptr, SDL_GetWindowSurface(window), &rect);

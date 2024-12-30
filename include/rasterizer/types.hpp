@@ -56,8 +56,8 @@ namespace rasterizer
     }
 
     // 2D determinant in the XY plane
-    inline float det2D(vector4f const & v0, vector4f & v1)
+    inline float det2D(vector4f const & v0, vector4f const & v1)
     {
-        return v0.x * v1.y - v0.y - v1.x;
+        return v0.x * v1.y - v0.y * v1.x;
     }
 }
