@@ -2,11 +2,10 @@ cmake_minimum_required(VERSION 3.20)
 project(cpu-rasterizer)
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_PREFIX_PATH "C:/Msys64/usr/bin")
 
 find_package(SDL2 REQUIRED)
 
-file(GLOB_RECURSE RASTERIZER_HEADERS "include/**/*.hpp")
+file(GLOB_RECURSE RASTERIZER_HEADERS "include/rasterizer/*.hpp")
 file(GLOB_RECURSE RASTERIZER_SOURCES "source/*.cpp")
 
 add_executable(cpu-rasterizer

@@ -6,40 +6,75 @@
             "command": "rm -rf build",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}",
+                "statusbar": {
+                    "hide" : true
+                }
             },
         },
         {
-            "label": "Prepare project",
+            "label": "Prepare CMake",
             "command": "cmake",
             "type": "shell",
             "args": [
                 "-B=build",
                 "-G='MinGW Makefiles'",
+                "-DCMAKE_PREFIX_PATH=C:\\Msys64\\usr\\bin",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
                 "-DCMAKE_BUILD_TYPE=Release",
             ],
             "group": "build",
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}",
+                "statusbar": {
+                    "hide" : true
+                }
             },
         },
         {
-            "label": "Build project",
+            "label": "Run CMake build",
             "type": "shell",
             "command": "cmake --build .",
             "group": "build",
             "options": {
-                "cwd": "${workspaceFolder}/build"
+                "cwd": "${workspaceFolder}/build",
+                "statusbar": {
+                    "hide" : true
+                }
             },
         },
         {
-            "label": "Build from scratch",
+            "label": "Run build executable",
+            "type": "shell",
+            "command": "./cpu-rasterizer.exe",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "focus": true,
+                "panel": "new",
+                "clear": true
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+                "statusbar": {
+                    "hide" : true
+                }
+            },
+        },
+        {
+            "label": "Build project",
             "dependsOrder": "sequence",
             "dependsOn": [
                 "Clear build folder",
-                "Prepare project",
-                "Build it!"
-            ]
+                "Prepare CMake",
+                "Run CMake build",
+                "Run build executable"
+            ],
+            "options": {
+                "statusbar": {
+                    "label" : "Run project🏃‍♂️‍➡️"
+                }
+            }
         }
     ]
 }

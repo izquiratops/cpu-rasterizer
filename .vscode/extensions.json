@@ -1,6 +1,8 @@
 {
     "recommendations": [
         "kylinideteam.cmake-intellisence",
-        "xaver.clang-format"
+        "llvm-vs-code-extensions.vscode-clangd",
+        "jeff-hykin.better-cpp-syntax",
+        "actboy168.tasks"
     ]
 }
