@@ -46,7 +46,7 @@
         {
             "label": "Run build executable",
             "type": "shell",
-            "command": "./cpu-rasterizer.exe",
+            "command": "./${workspaceFolderBasename}.exe",
             "group": "build",
             "presentation": {
                 "reveal": "always",

@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+
 #include <chrono>
 #include <iostream>
 #include <rasterizer/renderer.hpp>
@@ -30,32 +31,29 @@ int main(int argv, char **args) {
   bool running = true;
   while (running) {
     // Handle events, such as closing the window, or moving the mouse, etc.
-    for (SDL_Event event; SDL_PollEvent(&event);)
-      switch (event.type) {
-      case SDL_WINDOWEVENT:
-        switch (event.window.event) {
-        case SDL_WINDOWEVENT_RESIZED:
-          if (draw_surface)
-            SDL_FreeSurface(draw_surface);
-          draw_surface = nullptr;
-          width = event.window.data1;
-          height = event.window.data2;
+    for (SDL_Event event; SDL_PollEvent(&event);) switch (event.type) {
+        case SDL_WINDOWEVENT:
+          switch (event.window.event) {
+            case SDL_WINDOWEVENT_RESIZED:
+              if (draw_surface) SDL_FreeSurface(draw_surface);
+              draw_surface = nullptr;
+              width = event.window.data1;
+              height = event.window.data2;
+              break;
+          }
           break;
-        }
-        break;
 
-      case SDL_QUIT:
-        running = false;
-        break;
+        case SDL_QUIT:
+          running = false;
+          break;
 
-      case SDL_MOUSEMOTION:
-        mouse_x = event.motion.x;
-        mouse_y = event.motion.y;
-        break;
+        case SDL_MOUSEMOTION:
+          mouse_x = event.motion.x;
+          mouse_y = event.motion.y;
+          break;
       }
 
-    if (!running)
-      break;
+    if (!running) break;
 
     if (!draw_surface) {
       // RGBA32 means 8 bits per channel, 32 bits total.
@@ -83,22 +81,17 @@ int main(int argv, char **args) {
 
     clear(color_buffer, {1.f, 0.3f, 1.f, 1.f});
 
-    vector3f vertices[] =
-    {
+    vector3f vertices[] = {
         {100.f, 100.f, 0.f},
         {200.f, 100.f, 0.f},
         {100.f, 200.f, 0.f},
     };
 
-    draw(color_buffer,
-        draw_command {
-            .mesh = {
-                .positions = vertices,
-                .vertex_count = 3,
-                .color = {0.f, 0.f, 1.f, 1.f},
-            }
-        }
-    );
+    draw(color_buffer, draw_command{.mesh = {
+                                        .positions = vertices,
+                                        .vertex_count = 3,
+                                        .color = {0.f, 0.f, 1.f, 1.f},
+                                    }});
 
     SDL_Rect rect = {0, 0, width, height};
     SDL_BlitSurface(draw_surface, nullptr, SDL_GetWindowSurface(window), &rect);
