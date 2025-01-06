@@ -14,7 +14,7 @@
             }
         }
     },
-    "cmakeIntelliSence.cmakePath": "C:\\Msys64\\mingw64\\bin\\cmake",
+    "cmakeIntelliSence.cmakePath": "C:\\Msys64\\mingw64\\bin\\cmake.exe",
     "clang-format.style": "Google",
     "clangd.checkUpdates": true,
     "clangd.path": "C:\\Msys64\\mingw64\\bin\\clangd.exe",

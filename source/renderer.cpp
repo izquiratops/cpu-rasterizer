@@ -1,7 +1,7 @@
-#include "rasterizer/settings.hpp"
 #include <algorithm>
 #include <cmath>
 #include <rasterizer/renderer.hpp>
+#include <rasterizer/settings.hpp>
 #include <rasterizer/types.hpp>
 
 namespace rasterizer {
@@ -14,9 +14,12 @@ void clear(image_view const& color_buffer, vector4f const& color) {
 void draw(image_view const& color_buffer, draw_command const& command) {
   for (std::uint32_t vertex_index = 0;
        vertex_index + 2 < command.mesh.vertex_count; vertex_index += 3) {
-    auto v0 = as_point(command.mesh.positions[vertex_index + 0]);
-    auto v1 = as_point(command.mesh.positions[vertex_index + 1]);
-    auto v2 = as_point(command.mesh.positions[vertex_index + 2]);
+    auto v0 =
+        command.transform * as_point(command.mesh.positions[vertex_index + 0]);
+    auto v1 =
+        command.transform * as_point(command.mesh.positions[vertex_index + 1]);
+    auto v2 =
+        command.transform * as_point(command.mesh.positions[vertex_index + 2]);
 
     float det012 = det2D(v1 - v0, v2 - v0);
 
@@ -30,7 +33,7 @@ void draw(image_view const& color_buffer, draw_command const& command) {
         if (!ccw) continue;
         break;
       case rasterizer::cull_mode::ccw:
-        if(ccw) continue;
+        if (ccw) continue;
         break;
     }
 
@@ -49,9 +52,9 @@ void draw(image_view const& color_buffer, draw_command const& command) {
         std::max({std::floor(v0.y), std::floor(v1.y), std::floor(v2.y)});
 
     xmin = std::max<std::int32_t>(0, xmin);
-    xmax = std::max<std::int32_t>(color_buffer.width - 1, xmax);
+    xmax = std::min<std::int32_t>(color_buffer.width - 1, xmax);
     ymin = std::max<std::int32_t>(0, ymin);
-    ymax = std::max<std::int32_t>(color_buffer.height - 1, ymax);
+    ymax = std::min<std::int32_t>(color_buffer.height - 1, ymax);
 
     for (std::int32_t y = ymin; y <= ymax; ++y) {
       for (std::int32_t x = xmin; x <= xmax; ++x) {

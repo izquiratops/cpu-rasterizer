@@ -8,7 +8,7 @@
             "options": {
                 "cwd": "${workspaceFolder}",
                 "statusbar": {
-                    "hide" : true
+                    "hide": true
                 }
             },
         },
@@ -27,7 +27,7 @@
             "options": {
                 "cwd": "${workspaceFolder}",
                 "statusbar": {
-                    "hide" : true
+                    "hide": true
                 }
             },
         },
@@ -39,7 +39,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/build",
                 "statusbar": {
-                    "hide" : true
+                    "hide": true
                 }
             },
         },
@@ -57,22 +57,33 @@
             "options": {
                 "cwd": "${workspaceFolder}/build",
                 "statusbar": {
-                    "hide" : true
+                    "hide": true
                 }
             },
         },
         {
-            "label": "Build project",
+            "label": "Prepare project",
             "dependsOrder": "sequence",
             "dependsOn": [
                 "Clear build folder",
                 "Prepare CMake",
+            ],
+            "options": {
+                "statusbar": {
+                    "label": "Prepare project 🪚"
+                }
+            }
+        },
+        {
+            "label": "Run project",
+            "dependsOrder": "sequence",
+            "dependsOn": [
                 "Run CMake build",
                 "Run build executable"
             ],
             "options": {
                 "statusbar": {
-                    "label" : "Run project🏃‍♂️‍➡️"
+                    "label": "Run project 🐣"
                 }
             }
         }

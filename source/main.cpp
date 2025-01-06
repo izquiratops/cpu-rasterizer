@@ -79,23 +79,36 @@ int main(int argv, char **args) {
         .height = (std::uint32_t)height,
     };
 
-    clear(color_buffer, {1.f, 0.3f, 1.f, 1.f});
+    clear(color_buffer, {0.f, 0.f, 0.f, 1.f});
 
-    vector3f vertices[] = {
-        {100.f, 100.f, 0.f},
-        {200.f, 100.f, 0.f},
-        {100.f, 200.f, 0.f},
+    vector3f positions[] = {
+        {0.f, 0.f, 0.f},
+        {50.f, 0.f, 0.f},
+        {0.f, 50.f, 0.f},
     };
 
-    draw(color_buffer, draw_command{.mesh = {
-                                        .positions = vertices,
-                                        .vertex_count = 3,
-                                        .color = {0.f, 0.f, 1.f, 1.f},
-                                    }});
+    for (int i = 0; i < 100; ++i)
+      draw(
+          color_buffer,
+          draw_command{.mesh =
+                           {
+                               .positions = positions,
+                               .vertex_count = 3,
+                               .color = {static_cast<float>((i % 3) == 0),
+                                         static_cast<float>((i % 3) == 1),
+                                         static_cast<float>((i % 3) == 2), 1.f},
+                           },
+                       .transform = {
+                           // clang-format off
+                                  1.f, 0.f, 0.f, mouse_x + 50.f * (i % 10),
+                                  0.f, 1.f, 0.f, mouse_y + 50.f * (i / 10),
+                                  0.f, 0.f, 1.f, 0.f,
+                                  0.f, 0.f, 0.f, 1.f,
+                           // clang-format on
+                       }});
 
     SDL_Rect rect = {0, 0, width, height};
     SDL_BlitSurface(draw_surface, nullptr, SDL_GetWindowSurface(window), &rect);
-
     SDL_UpdateWindowSurface(window);
   }
 
