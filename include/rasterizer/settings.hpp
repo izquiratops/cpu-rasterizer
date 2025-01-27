@@ -2,8 +2,8 @@
 
 namespace rasterizer {
 enum class cull_mode {
-  none,
-  cw,
-  ccw,
+    none,
+    cw,
+    ccw,
 };
 }

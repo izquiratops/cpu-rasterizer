@@ -13,7 +13,7 @@
             },
         },
         {
-            "label": "Prepare CMake",
+            "label": "Prepare CMake (Windows)",
             "command": "cmake",
             "type": "shell",
             "args": [
@@ -44,7 +44,7 @@
             },
         },
         {
-            "label": "Run build executable",
+            "label": "Run build executable (Windows)",
             "type": "shell",
             "command": "./${workspaceFolderBasename}.exe",
             "group": "build",
@@ -66,11 +66,11 @@
             "dependsOrder": "sequence",
             "dependsOn": [
                 "Clear build folder",
-                "Prepare CMake",
+                "Prepare CMake (Windows)",
             ],
             "options": {
                 "statusbar": {
-                    "label": "Prepare project 🪚"
+                    "label": "Prepare project 🐣"
                 }
             }
         },
@@ -79,11 +79,11 @@
             "dependsOrder": "sequence",
             "dependsOn": [
                 "Run CMake build",
-                "Run build executable"
+                "Run build executable (Windows)"
             ],
             "options": {
                 "statusbar": {
-                    "label": "Run project 🐣"
+                    "label": "Run project 🏃‍♂️‍➡️"
                 }
             }
         }

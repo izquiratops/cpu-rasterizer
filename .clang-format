@@ -1,0 +1,10 @@
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+AlignAfterOpenBracket: Align 
+AlignConsecutiveDeclarations: true
+BasedOnStyle: LLVM
+BinPackArguments: true
+BinPackParameters: true
+BreakBeforeBraces: Stroustrup
+ColumnLimit: 80
+IndentWidth: 4
+Language: Cpp
