@@ -16,6 +16,7 @@
     },
     "clang-format.style": "file",
     "clangd.checkUpdates": true,
+    // Windows
     "clangd.path": "C:\\Msys64\\mingw64\\bin\\clangd.exe",
     "clangd.arguments": [
         "--query-driver=\"C:\\Msys64\\mingw64\\bin\\x86_64-w64-mingw32-gcc.exe\"",

@@ -3,33 +3,43 @@
     "tasks": [
         {
             "label": "Clear build folder",
-            "command": "rm -rf build",
+            "command": "rm -rf build", // Make sure you're using MSYS2 on Windows
             "type": "shell",
             "options": {
                 "cwd": "${workspaceFolder}",
                 "statusbar": {
                     "hide": true
                 }
-            },
+            }
         },
         {
-            "label": "Prepare CMake (Windows)",
+            "label": "Prepare CMake",
             "command": "cmake",
             "type": "shell",
-            "args": [
-                "-B=build",
-                "-G='MinGW Makefiles'",
-                "-DCMAKE_PREFIX_PATH=C:\\Msys64\\usr\\bin",
-                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
-                "-DCMAKE_BUILD_TYPE=Release",
-            ],
+            "windows": {
+                "args": [
+                    "-B=build",
+                    "-G='MinGW Makefiles'",
+                    "-DCMAKE_PREFIX_PATH=C:\\Msys64\\usr\\bin",
+                    "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+                    "-DCMAKE_BUILD_TYPE=Release"
+                ]
+            },
+            "linux": {
+                "args": [
+                    "-B=build",
+                    // TODO: install SDL "-DCMAKE_PREFIX_PATH=C:\\Msys64\\usr\\bin",
+                    "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+                    "-DCMAKE_BUILD_TYPE=Release"
+                ]
+            },
             "group": "build",
             "options": {
                 "cwd": "${workspaceFolder}",
                 "statusbar": {
                     "hide": true
                 }
-            },
+            }
         },
         {
             "label": "Run CMake build",
@@ -41,12 +51,11 @@
                 "statusbar": {
                     "hide": true
                 }
-            },
+            }
         },
         {
-            "label": "Run build executable (Windows)",
+            "label": "Run build executable",
             "type": "shell",
-            "command": "./${workspaceFolderBasename}.exe",
             "group": "build",
             "presentation": {
                 "reveal": "always",
@@ -60,32 +69,28 @@
                     "hide": true
                 }
             },
+            "windows": {
+                "command": "./${workspaceFolderBasename}.exe"
+            },
+            "linux": {
+                "command": "./${workspaceFolderBasename}"
+            }
         },
         {
-            "label": "Prepare project",
+            "label": "> Build",
             "dependsOrder": "sequence",
             "dependsOn": [
                 "Clear build folder",
-                "Prepare CMake (Windows)",
-            ],
-            "options": {
-                "statusbar": {
-                    "label": "Prepare project 🐣"
-                }
-            }
+                "Prepare CMake",
+            ]
         },
         {
-            "label": "Run project",
+            "label": "> Run",
             "dependsOrder": "sequence",
             "dependsOn": [
                 "Run CMake build",
-                "Run build executable (Windows)"
-            ],
-            "options": {
-                "statusbar": {
-                    "label": "Run project 🏃‍♂️‍➡️"
-                }
-            }
+                "Run build executable"
+            ]
         }
     ]
 }
