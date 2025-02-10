@@ -4,6 +4,5 @@
         "llvm-vs-code-extensions.vscode-clangd",
         "xaver.clang-format",
         "jeff-hykin.better-cpp-syntax",
-        "actboy168.tasks"
     ]
 }

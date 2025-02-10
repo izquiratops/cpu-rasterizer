@@ -15,7 +15,8 @@ void clear(image_view const &color_buffer, vector4f const &color)
 void draw(image_view const &color_buffer, draw_command const &command)
 {
     for (std::uint32_t vertex_index = 0;
-         vertex_index + 2 < command.mesh.vertex_count; vertex_index += 3) {
+         vertex_index + 2 < command.mesh.vertex_count;
+         vertex_index += 3) {
         auto v0 = command.transform *
                   as_point(command.mesh.positions[vertex_index + 0]);
         auto v1 = command.transform *
